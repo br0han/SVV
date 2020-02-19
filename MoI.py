@@ -8,11 +8,12 @@ Methods to calculate the moments of inertia of the aileron profile
 """
 
 import GlobalConstants as g
+import Centroid as cent
 import numpy as np
 import Coordinates as coors
 import math
 
-centroid = -107.56*10**(-3)
+centroid = cent.Centroid_z()
 
 ra = g.ha/2.
 
@@ -20,7 +21,8 @@ def I_ring():
     
     Izz = 0.5*np.pi*(ra)**3*g.tsk
     
-    Iyy = g.tsk*((ra)**3)*((np.pi**2 - 8)/(2*np.pi)) + (np.pi*(ra)*g.tsk)*((2*(ra)/np.pi) + centroid)**2
+    #Iyy = g.tsk*((ra)**3)*((np.pi**2 - 8)/(2*np.pi)) + (np.pi*(ra)*g.tsk)*((2*(ra)/np.pi) + centroid)**2    
+    Iyy = 0.5*np.pi*(ra)**3*g.tsk + (np.pi*ra*g.tsk)*(centroid**2)
     
     return [Iyy, Izz]
 
@@ -46,7 +48,7 @@ def I_str():
     ycoords = stcoords[:, 1]
     zcoords = stcoords[:, 0]
     
-    
+    print(zcoords)
     #Calculate Izz
     
     print(int(g.nst/2))
@@ -59,7 +61,7 @@ def I_str():
     
     for j in range(0, g.nst):
         
-        Iyy += Ast*((zcoords[i] + centroid)**2)
+        Iyy += Ast*((zcoords[i] - centroid)**2)
         
     return [Iyy, Izz]
         
@@ -72,7 +74,7 @@ def I_skin():
     
     Izz = 2*((g.tsk*(lsk**3)*((math.sin(alpha))**2))/12 + ((ra/2.)**2)*(lsk*g.tsk))
     
-    Iyy = 2*((g.tsk*(lsk**3)*((math.cos(alpha))**2))/12 + (lsk*g.tsk*(-(0.5*(g.Ca - ra)) + centroid)**2))
+    Iyy = 2*((g.tsk*(lsk**3)*((math.cos(alpha))**2))/12 + (lsk*g.tsk*(-(0.5*(g.Ca - ra)) - centroid)**2))
     
     return [Iyy, Izz]
     
