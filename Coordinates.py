@@ -57,7 +57,7 @@ def Coord_out():
         Coord[Nst - 1 - k, 1] = -Coord[k + 1, 1]
 
     #Coord[:, 0] = Coord[:,0]- 0.0865 # Shifts to origin at leading edge, if needed.
-    Coord[:, 0] = -Coord[:, 0]
+    #Coord[:, 0] = -Coord[:, 0]
     return Coord
 Coord = Coord_out()
 
