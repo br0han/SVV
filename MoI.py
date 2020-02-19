@@ -12,18 +12,22 @@ import numpy as np
 import Coordinates as coors
 import math
 
+centroid = -107.56*10**(-3)
+
+ra = g.ha/2.
+
 def I_ring():
     
-    Izz = 0.5*np.pi*(g.ha/2.)^3
+    Izz = 0.5*np.pi*(ra)**3*g.tsk
     
-    Iyy = g.tsk*((g.ha/2)**3)*((np.pi**2 - 8)/(2*np.pi)) + (np.pi*(0.5*g.ha)*g.tsk)*((2*(0.5*g.ha)/np.pi) + centroid)**2
+    Iyy = g.tsk*((ra)**3)*((np.pi**2 - 8)/(2*np.pi)) + (np.pi*(ra)*g.tsk)*((2*(ra)/np.pi) + centroid)**2
     
     return [Iyy, Izz]
 
 
 def I_spar():
     
-    Izz = g.tsp*(g.ha^3)/12
+    Izz = g.tsp*(g.ha**3)/12
     
     Iyy = (g.ha*g.tsp)*(centroid**2)
     
@@ -42,9 +46,12 @@ def I_str():
     ycoords = stcoords[:, 1]
     zcoords = stcoords[:, 0]
     
+    
     #Calculate Izz
     
-    for i in range(0, g.nst/2):
+    print(int(g.nst/2))
+    
+    for i in range(0, int(g.nst/2)):
         
         Izz += 2*Ast*(ycoords[i])**2
         
@@ -59,25 +66,29 @@ def I_str():
     
 def I_skin():
     
-    alpha = math.atan((g.ha/2)/(g.Ca - 0.5*g.ha)) #angle of staight skin to z-axis
+    alpha = math.atan(ra/(g.Ca - ra)) #angle of staight skin to z-axis
     
-    lsk = math.sqrt((g.ha/2.)**2 + (g.Ca - 0.5*g.ha)**2) #length of straigth skin 
+    lsk = math.sqrt(ra**2 + (g.Ca - ra)**2) #length of straigth skin 
     
-    Izz = 2*((g.tsk*(lsk**3)*((math.sin(alpha))**2))/12 + ((g.ha/4.)**2)*(lsk*g.tsk))
+    Izz = 2*((g.tsk*(lsk**3)*((math.sin(alpha))**2))/12 + ((ra/2.)**2)*(lsk*g.tsk))
     
-    Iyy = 2*((g.tsk*(lsk**3)*((math.cos(alpha))**2))/12 + (Ast*(-(0.5*(g.Ca - 0.5*g.ha)) + centroid)**2))
+    Iyy = 2*((g.tsk*(lsk**3)*((math.cos(alpha))**2))/12 + (lsk*g.tsk*(-(0.5*(g.Ca - ra)) + centroid)**2))
     
     return [Iyy, Izz]
     
     
 def I_zz():
     
-    return (I_ring[1] + I_spar[1] + I_str[1] + I_skin[1])
+    return (I_ring()[1] + I_spar()[1] + I_str()[1] + I_skin()[1])
 
 
 def I_yy():
     
-    return (I_ring[0] + I_spar[0] + I_str[0] + I_skin[0])
+    return (I_ring()[0] + I_spar()[0] + I_str()[0] + I_skin()[0])
+
+
+
+print (I_yy(), I_zz())
     
     
     
