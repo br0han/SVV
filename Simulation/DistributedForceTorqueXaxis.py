@@ -2,7 +2,7 @@ import GlobalConstants as GC
 import numpy as np
 from matplotlib import pyplot as plt
 from cubicspline import cubicspline
-from aerodynamicloads import CoordForceTorque
+from aerodynamicloads import DistForceTorque
 
 data = np.genfromtxt('aerodynamicloadcrj700.dat', dtype=None, delimiter=',')
 val = data[:,1]
@@ -19,7 +19,7 @@ for i in range(1,n+1):
     Coord.append(z)
 Coord = np.array(Coord)
 
-DT , DF = CoordForceTorque(data,Coord,ShearCenter)
+DF , DT = DistForceTorque(data,Coord,ShearCenter)
 
 n = len(DT)
 Ca = GC.Ca #0.484
@@ -32,9 +32,10 @@ for i in range(1,n+1):
     Span.append(z)
 Span = np.array(Span)
 
-MatrixF = cubicspline(DT , Span)
-MatrixT = cubicspline(DF , Span)
+MatrixF = cubicspline(DF , Span)
+MatrixT = cubicspline(DT , Span)
 
+'''
 XX = list(np.linspace(Span[0],Span[-1],10000))
 YY = []
 for i in np.linspace(Span[0],Span[-1],10000):
@@ -63,4 +64,4 @@ for i in np.linspace(Span[0],Span[-1],10000):
 
 plt.plot(XX,YY)
 plt.show()
-
+'''

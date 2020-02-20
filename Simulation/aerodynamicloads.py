@@ -19,7 +19,7 @@ for i in range(1,n+1):
     Coord.append(z)
 Coord = np.array(Coord)
 
-def CoordForceTorque(data,Coord,ShearCenter):
+def DistForceTorqueMatrix(data,Coord,ShearCenter):
 
     DistributedForce = []
     DistributedTorque = []
@@ -57,10 +57,28 @@ def CoordForceTorque(data,Coord,ShearCenter):
         DistributedTorque.append(Torque)
 
 
-    DistributedForce  = np.array(DistributedForce)
-    DistributedTorque = np.array(DistributedTorque)
+    DF  = np.array(DistributedForce)
+    DT = np.array(DistributedTorque)
 
-    return DistributedForce, DistributedTorque
+    n = len(DT)
+    Ca = GC.Ca #0.484
+    la = GC.la #1.691
+    Span = []
+    for i in range(1,n+1):
+        theta0 = (i-1)/n * np.pi
+        theta1 = (i)/n * np.pi
+        z = -1/2*(la/2*(1-np.cos(theta0))+la/2*(1-np.cos(theta1)))
+        Span.append(z)
+    Span = np.array(Span)
+
+    MatrixF = cubicspline(DF , Span)
+    MatrixT = cubicspline(DT , Span)
+
+
+
+    
+
+    return MatrixF, MatrixT
     
     
 
