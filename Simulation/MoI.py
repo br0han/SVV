@@ -21,9 +21,7 @@ def I_ring():
     
     Izz = 0.5*np.pi*(ra)**3*g.tsk
     
-    #Iyy = g.tsk*((ra)**3)*((np.pi**2 - 8)/(2*np.pi)) + (np.pi*(ra)*g.tsk)*((2*(ra)/np.pi) - centroid)**2    
-    
-    Iyy = 0.5*np.pi*(ra)**3*g.tsk + (np.pi*ra*g.tsk)*(centroid**2)
+    Iyy = g.tsk*((ra)**3)*((np.pi**2 - 8)/(2*np.pi)) + (np.pi*(ra)*g.tsk)*((2*(ra)/np.pi) - centroid)**2    
     
     return [Iyy, Izz]
 
@@ -49,10 +47,7 @@ def I_str():
     ycoords = stcoords[:, 1]
     zcoords = stcoords[:, 0]
     
-    print(zcoords)
     #Calculate Izz
-    
-    print(int(g.nst/2))
     
     for i in range(0, int(g.nst/2)):
         
@@ -62,7 +57,7 @@ def I_str():
     
     for j in range(0, g.nst):
         
-        Iyy += Ast*((zcoords[i] - centroid)**2)
+        Iyy += Ast*((zcoords[j] - centroid)**2)
         
     return [Iyy, Izz]
         
