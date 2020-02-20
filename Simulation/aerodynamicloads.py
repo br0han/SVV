@@ -53,7 +53,6 @@ def DistForceTorqueMatrix(data,Coord,ShearCenter):
         #----------------Torque genertated by the point force at the shear center
 
         Torque = Force * (POA - ShearCenter)  ##   Shear Center is variable
-        #print(Torque)
         DistributedTorque.append(Torque)
 
 
@@ -67,12 +66,13 @@ def DistForceTorqueMatrix(data,Coord,ShearCenter):
     for i in range(1,n+1):
         theta0 = (i-1)/n * np.pi
         theta1 = (i)/n * np.pi
-        z = -1/2*(la/2*(1-np.cos(theta0))+la/2*(1-np.cos(theta1)))
+        z = 1/2*(la/2*(1-np.cos(theta0))+la/2*(1-np.cos(theta1)))
         Span.append(z)
     Span = np.array(Span)
 
     MatrixF = cubicspline(DF , Span)
     MatrixT = cubicspline(DT , Span)
+    
 
 
 
