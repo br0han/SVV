@@ -69,17 +69,29 @@ def DistForceTorqueMatrix(data,Coord,ShearCenter):
         z = 1/2*(la/2*(1-np.cos(theta0))+la/2*(1-np.cos(theta1)))
         Span.append(z)
     Span = np.array(Span)
+    
 
     MatrixF = cubicspline(DF , Span)
     MatrixT = cubicspline(DT , Span)
+
+
+    BotRow = np.array([0,0,0,0])
+    MatrixMF = np.vstack((MatrixF,BotRow))
+    MatrixMT = np.vstack((MatrixT,BotRow))
+
+    Span  = np.reshape(Span,(len(Span),1))
+
+    MatrixMF = np.hstack((MatrixMF,Span))
+    MatrixMT = np.hstack((MatrixMT,Span))
     
 
 
 
     
 
-    return MatrixF, MatrixT
-    
+    return MatrixF, MatrixT , MatrixMF ,MatrixMT 
+
+MatrixF, MatrixT ,MatrixMF ,MatrixMT = DistForceTorqueMatrix(data,Coord,ShearCenter)
     
 
 
