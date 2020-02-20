@@ -22,6 +22,7 @@ def I_ring():
     Izz = 0.5*np.pi*(ra)**3*g.tsk
     
     #Iyy = g.tsk*((ra)**3)*((np.pi**2 - 8)/(2*np.pi)) + (np.pi*(ra)*g.tsk)*((2*(ra)/np.pi) - centroid)**2    
+    
     Iyy = 0.5*np.pi*(ra)**3*g.tsk + (np.pi*ra*g.tsk)*(centroid**2)
     
     return [Iyy, Izz]
