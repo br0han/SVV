@@ -19,7 +19,7 @@ for i in range(1,n+1):
     Coord.append(z)
 Coord = np.array(Coord)
 
-def DistForceTorqueMatrix(data,Coord,ShearCenter):
+def DistForceTorqueMatrix():
 
     DistributedForce = []
     DistributedTorque = []
@@ -91,7 +91,7 @@ def DistForceTorqueMatrix(data,Coord,ShearCenter):
 
     return MatrixF, MatrixT , MatrixMF ,MatrixMT 
 
-MatrixF, MatrixT ,MatrixMF ,MatrixMT = DistForceTorqueMatrix(data,Coord,ShearCenter)
+MatrixF, MatrixT ,MatrixMF ,MatrixMT = DistForceTorqueMatrix()
     
 
 
