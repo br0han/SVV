@@ -21,6 +21,10 @@ Coord = np.array(Coord)
 """
 MatrixF , MatrixT , MatrixMF, MatrixMT = DistForceTorqueMatrix() #data,Coord,ShearCenter
 
+<<<<<<< HEAD
+=======
+MatrixF , MatrixT , MatrixMF, MatrixMT = DistForceTorqueMatrix()
+>>>>>>> 9c13501ddf095838e1e6df9f27ff586170a31694
 
 n = len(MatrixF)+1
 Ca = GC.Ca #0.484
@@ -75,9 +79,11 @@ plt.subplot(1,2,1)
 plt.plot(XX,FF)
 plt.legend('Force')
 
-plt.subplot(1,2,2)
+'''plt.subplot(1,2,2)
 plt.plot(XX,TT)
 plt.legend('Torque')
+'''
+plt.grid(1)
 
 plt.show()
 

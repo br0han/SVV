@@ -4,6 +4,26 @@ from matplotlib import pyplot as plt
 from cubicspline import cubicspline
 
 
+<<<<<<< HEAD
+=======
+data = np.genfromtxt('aerodynamicloadcrj700.dat', dtype=None, delimiter=',')
+val = data[:,1]
+ShearCenter = 0.2
+
+n=len(val)
+Ca = GC.Ca #0.484
+la = GC.la #1.691
+Coord = []
+
+for i in range(1,n+1):
+    theta0 = (i-1)/n * np.pi
+    theta1 = (i)/n * np.pi
+    z = -1/2*(Ca/2*(1-np.cos(theta0))+Ca/2*(1-np.cos(theta1)))
+    Coord.append(z)
+    
+Coord = np.array(Coord)
+
+>>>>>>> 9c13501ddf095838e1e6df9f27ff586170a31694
 def DistForceTorqueMatrix():
     ###Some inputs
     data = np.genfromtxt('aerodynamicloadcrj700.dat', dtype=None, delimiter=',')
@@ -30,6 +50,7 @@ def DistForceTorqueMatrix():
         #----------------Part to find the point force
         val = data[:,i]
         CoefM = cubicspline(val, Coord)
+        
         CoefInt = np.zeros(np.shape(CoefM))
         CoefInt[:,0] = CoefM[:,0]/4
         CoefInt[:,1] = CoefM[:,1]/3
@@ -60,6 +81,7 @@ def DistForceTorqueMatrix():
     DT = np.array(DistributedTorque)    #list of Torques on each chord (41 points)
 
     n = len(DT)
+    
     Ca = GC.Ca #0.484
     la = GC.la #1.691
     Span = []
@@ -70,9 +92,14 @@ def DistForceTorqueMatrix():
         Span.append(z)
     Span = np.array(Span)
     
+<<<<<<< HEAD
 
     MatrixF = cubicspline(DF , Span)    #interpolation of Force along the span (40 equations)
     MatrixT = cubicspline(DT , Span)    #interpolation of Torque along the span (40 equations)
+=======
+    MatrixF = cubicspline(DF , Span)
+    MatrixT = cubicspline(DT , Span)
+>>>>>>> 9c13501ddf095838e1e6df9f27ff586170a31694
 
 
     BotRow = np.array([0,0,0,0])
