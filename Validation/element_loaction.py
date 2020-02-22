@@ -96,4 +96,4 @@ np.asarray(element)
 
 #np.genfromtxt("elements_locations",dtype=<class'float',comments='#',delimiter',',skip_header=0,skip_footer=0,c)
               
-np.savetxt("elements_location.txt",elements,delimiter = ",")
+np.savetxt("elements_location.txt",element,delimiter = ",")
