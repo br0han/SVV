@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from cubicspline import cubicspline
 from aerodynamicloads import DistForceTorqueMatrix
-
+"""
 data = np.genfromtxt('aerodynamicloadcrj700.dat', dtype=None, delimiter=',')
 val = data[:,1]
 ShearCenter = 0.2
@@ -18,8 +18,9 @@ for i in range(1,n+1):
     z = -1/2*(Ca/2*(1-np.cos(theta0))+Ca/2*(1-np.cos(theta1)))
     Coord.append(z)
 Coord = np.array(Coord)
+"""
+MatrixF , MatrixT , MatrixMF, MatrixMT = DistForceTorqueMatrix() #data,Coord,ShearCenter
 
-MatrixF , MatrixT , MatrixMF, MatrixMT = DistForceTorqueMatrix(data,Coord,ShearCenter)
 
 n = len(MatrixF)+1
 Ca = GC.Ca #0.484
@@ -34,11 +35,10 @@ Span = np.array(Span)
 
 
 
-
 XX = list(np.linspace(Span[0],Span[-1],10000))
 FF = []
 for i in np.linspace(Span[0],Span[-1],10000):
-    for j in range(0,39):
+    for j in range(0,len(MatrixF)):
         if Span[j+1] >=  i >= Span[j]:
             
             a = MatrixF[j,0]
@@ -51,12 +51,12 @@ for i in np.linspace(Span[0],Span[-1],10000):
 
             FF.append(y)
 
-            
+       
             
 XX = list(np.linspace(Span[0],Span[-1],10000))
 TT = []
 for i in np.linspace(Span[0],Span[-1],10000):
-    for j in range(0,39):
+    for j in range(0,len(MatrixT)):
         if Span[j+1] >=  i >= Span[j]:
             
             a = MatrixT[j,0]
@@ -71,7 +71,6 @@ for i in np.linspace(Span[0],Span[-1],10000):
 
 
             
-
 plt.subplot(1,2,1)
 plt.plot(XX,FF)
 plt.legend('Force')

@@ -4,29 +4,29 @@ from matplotlib import pyplot as plt
 from cubicspline import cubicspline
 
 
-data = np.genfromtxt('aerodynamicloadcrj700.dat', dtype=None, delimiter=',')
-val = data[:,1]
-ShearCenter = 0.2
-
-n=len(val)
-Ca = GC.Ca #0.484
-la = GC.la #1.691
-Coord = []
-for i in range(1,n+1):
-    theta0 = (i-1)/n * np.pi
-    theta1 = (i)/n * np.pi
-    z = -1/2*(Ca/2*(1-np.cos(theta0))+Ca/2*(1-np.cos(theta1)))
-    Coord.append(z)
-Coord = np.array(Coord)
-
 def DistForceTorqueMatrix():
+    ###Some inputs
+    data = np.genfromtxt('aerodynamicloadcrj700.dat', dtype=None, delimiter=',')
+    val = data[:,1]
+    ShearCenter = 0.2
+
+    n=len(val)
+    Ca = GC.Ca #0.484
+    la = GC.la #1.691
+    Coord = []
+    for i in range(1,n+1):
+        theta0 = (i-1)/n * np.pi
+        theta1 = (i)/n * np.pi
+        z = -1/2*(Ca/2*(1-np.cos(theta0))+Ca/2*(1-np.cos(theta1)))
+        Coord.append(z)
+    Coord = np.array(Coord)
+    ###End of inputs
+
 
     DistributedForce = []
     DistributedTorque = []
 
-
-
-    for i in range(0,40):
+    for i in range(0,41):   #41 because its the width of the 'data' matrix
         #----------------Part to find the point force
         val = data[:,i]
         CoefM = cubicspline(val, Coord)
@@ -56,8 +56,8 @@ def DistForceTorqueMatrix():
         DistributedTorque.append(Torque)
 
 
-    DF  = np.array(DistributedForce)
-    DT = np.array(DistributedTorque)
+    DF  = np.array(DistributedForce)    #list of Forces on each chord (41 points)
+    DT = np.array(DistributedTorque)    #list of Torques on each chord (41 points)
 
     n = len(DT)
     Ca = GC.Ca #0.484
@@ -71,8 +71,8 @@ def DistForceTorqueMatrix():
     Span = np.array(Span)
     
 
-    MatrixF = cubicspline(DF , Span)
-    MatrixT = cubicspline(DT , Span)
+    MatrixF = cubicspline(DF , Span)    #interpolation of Force along the span (40 equations)
+    MatrixT = cubicspline(DT , Span)    #interpolation of Torque along the span (40 equations)
 
 
     BotRow = np.array([0,0,0,0])
