@@ -12,11 +12,13 @@ n=len(val)
 Ca = GC.Ca #0.484
 la = GC.la #1.691
 Coord = []
+
 for i in range(1,n+1):
     theta0 = (i-1)/n * np.pi
     theta1 = (i)/n * np.pi
     z = -1/2*(Ca/2*(1-np.cos(theta0))+Ca/2*(1-np.cos(theta1)))
     Coord.append(z)
+    
 Coord = np.array(Coord)
 
 def DistForceTorqueMatrix():
@@ -30,6 +32,7 @@ def DistForceTorqueMatrix():
         #----------------Part to find the point force
         val = data[:,i]
         CoefM = cubicspline(val, Coord)
+        
         CoefInt = np.zeros(np.shape(CoefM))
         CoefInt[:,0] = CoefM[:,0]/4
         CoefInt[:,1] = CoefM[:,1]/3
@@ -60,6 +63,7 @@ def DistForceTorqueMatrix():
     DT = np.array(DistributedTorque)
 
     n = len(DT)
+    
     Ca = GC.Ca #0.484
     la = GC.la #1.691
     Span = []
@@ -70,7 +74,6 @@ def DistForceTorqueMatrix():
         Span.append(z)
     Span = np.array(Span)
     
-
     MatrixF = cubicspline(DF , Span)
     MatrixT = cubicspline(DT , Span)
 
