@@ -134,19 +134,36 @@ b[8,0] = FRzz*integ.w(x1, 4) + sc*GJ*integ.t(x1,2) + d1*cos(theta_a)
 
 '''Row 9 v(x2) - sc*theta(x2)'''
 A[9,0] = -(1/6)*((x2 - x1)**3)*(-FRzz) + sc*(x2-x1)*(-GJ)*sc #Ry1
-A[9,6] = -(cos(theta_a)/2)*((x2 - (x2 - xa/2))**3)*(-FRzz) - cos(theta_a)*(0.5*ha - sc)*(x2 - (x2 - xa/2))*(-GJ)*sc + (sin(theta_a)*(ha/2)*(x2 - (x2 - xa/2))*(-GJ*sc))
-A[9,7] = x2
-A[9,8] = 1
-A[9,11] = sc
+A[9,6] = -(cos(theta_a)/6)*((x2 - (x2 - xa/2))**3)*(-FRzz) - cos(theta_a)*(0.5*ha - sc)*(x2 - (x2 - xa/2))*(-GJ)*sc + (sin(theta_a)*(ha/2)*(x2 - (x2 - xa/2))*(-GJ*sc))
+A[9,7] = x2   #Cv1
+A[9,8] = 1    #Cv2
+A[9,11] = -sc #Ctheta
 '''RHS(9)'''
 b[9,0] = FRzz*integ.w(x2,4) + sc*GJ*(-P_y*(ha/2 - sc)*(x2 - (x2 - xa/2))) + sc*GJ*integ.t(x2,2)
 
 
 
-
-
+'''Row 10 v(x3) - theta(x3)*sc'''
+A[10,0] = -(1/6)*((x3 - x1)**3)*(-FRzz) + sc*(x3 - x1)*(-GJ)*sc #Ry1
+A[10,2] = -(1/6)*((x3 - x2)**3)*(-FRzz) + sc*(x3 - x2)*(-GJ)*sc #Ry2
+A[10,6] = -(1/6)*sin(theta_a)*((x3 - (x2 - xa/2))**3)*(-FRzz) - sin(theta)*(ha/2 - sc)*(x3 - (x2 - xa/2))*(-GJ)*sc + cos(theta_a)*(ha/2)*(x3 - (x2 - xa/2))*(-GJ)*sc
+A[10,7] = x3
+A[10,9] = 1
+A[10,11] = -1
+'''RHS(10)'''
+b[10, 0] = FRzz*(P_y/6)*((x3 - (x2 + xa/2))**3) + FRzz*integ(x3,4) + GJ*sc*((P_z*(ha/2)*(x3 - (x2 + xa/2)))- (P_y*(ha/2 - sc)*(x3 - (x2 - xa/2))) + (integ.t(x3,2))) + d3*cos(theta_a)
  
 
+
+'''Row 11 w(x2 + xa/2)cos + v(x2 + xa/2)sin'''
+A[11,0] = -(1/6)*(((x2 - xa/2) - x1)**3)*(-FRzz)*sin(theta_a)
+A[11,1] = -(1/6)*(((x2 - xa/2) - x1)**3)*(-FRyy)*cos(theta_a)
+A[11,7] = (x2 - xa/2)*sin(theta_a)
+A[11,8] = sin(theta_a)
+A[11,9] = (x2 - xa/2)*cos(theta_a)
+A[11,10] = cos(theta_a)
+'''RHS(10)'''
+b[11,0] = FRzz*integ.w((x2 - xa/2), 4)
 
 
 
