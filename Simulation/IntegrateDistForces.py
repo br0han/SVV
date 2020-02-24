@@ -70,10 +70,27 @@ def setcoefs(Cs):
             for k in range(4+4):
                 
                 Cs[4, i, 7] += ((xnodes[i] - xnodes[i-1])**(7-k))*(Cs[4, i-1, k])
-        
+  
 
-setcoefs(CFs)
-setcoefs(CTs)
+      
+def setallcoefs():
+    
+    A, B, Force_Distrib, Torque_Distrib = loads.DistForceTorqueMatrix()
+
+    l = len(Force_Distrib)
+
+    global CFs = np.zeros((5, l, 8))
+    global CTs = np.zeros((5, l, 8))
+
+    global Fs[0, :, :4]  = Force_Distrib[:, :4]
+    global CTs[0, :, :4]  = Torque_Distrib[:, :4]
+
+    global xnodes = Force_Distrib[:,4]
+    
+    setcoefs(CFs)
+    setcoefs(CTs)
+
+
 
 
 def w(x, il):

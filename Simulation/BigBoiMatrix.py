@@ -9,7 +9,10 @@ import numpy as np
 import GlobalConstants as g
 import IntegrateDisForces as integ
 import MoI as moi
+import Jcalc as JJ
 from math imort sin,cos
+
+integ.setallcoefs()
 
 E = g.E
 G = g.G
@@ -96,22 +99,49 @@ b[5,0] = d1*sin(theta_a)
 
 
 '''Row 6 w(x2)'''
-FRzz = (1/(E*moi.I_zz()))
-A[6,1] = -(1/6)*((x2 - x1)**3)*FRzz #Rz1
-A[6,6] = -(1/6)*((x2 - (x2 - 0.5*xa))**3)*FRzz*cos(theta_a) #Raz
+FRyy = (1/(E*moi.I_yy()))
+A[6,1] = -(1/6)*((x2 - x1)**3)*(-FRyy) #Rz1
+A[6,6] = -(1/6)*((x2 - (x2 - 0.5*xa))**3)*(-FRyy)*cos(theta_a) #Raz
 A[6,9] = x2 #Cw1
 A[6,10] = 1 #Cw2
 '''RHS(6)'''
 #Zero
 
+
+
 '''Row 7 w(x3)'''
-A[7,1] = -(1/6)*((x3 - x1)**3)*FRzz #Rz1
-A[7,3] = -(1/6)*((x3-x2)**3)*FRzz #Rz2
-A[7,6] = -(1/6)*((x3-(x2 - 0.5*xa))**3)*FRzz*cos(theta_a) #Raz
+A[7,1] = -(1/6)*((x3 - x1)**3)*(-FRyy) #Rz1
+A[7,3] = -(1/6)*((x3-x2)**3)*(-FRyy) #Rz2
+A[7,6] = -(1/6)*((x3-(x2 - 0.5*xa))**3)*(-FRyy)*cos(theta_a) #Raz
 A[7,9] = x3 #Cw1
 A[7,10] = 1 #Cw2
 '''RHS(7)'''
-b[7,0] = -(P_z/6)*((x3 - (x2 + 0.5*xa))**3) + d3*sin(theta_a)
+b[7,0] = -(P_z/6)*((x3 - (x2 + 0.5*xa))**3)*FRyy + d3*sin(theta_a)
+
+
+
+'''Row 8 v(x1) - sc*theta(x1)'''
+GJ = (1/(G*(JJ.J())))
+FRzz = (1/(E*moi.I_zz()))
+
+A[8,7] = x1  #Cv1
+A[8,8] = 1 #Cv2
+A[8,11] = -sc #Ctheta
+'''RHS(8)'''
+b[8,0] = FRzz*integ.w(x1, 4) + sc*GJ*integ.t(x1,2) + d1*cos(theta_a)
+
+
+
+'''Row 9 v(x2) - sc*theta(x2)'''
+A[9,0] = -(1/6)*((x2 - x1)**3)*(-FRzz) + sc*(x2-x1)*(-GJ)*sc #Ry1
+A[9,6] = -(cos(theta_a)/2)*((x2 - (x2 - xa/2))**3)*(-FRzz) - cos(theta_a)*(0.5*ha - sc)*(x2 - (x2 - xa/2))*(-GJ)*sc + (sin(theta_a)*(ha/2)*(x2 - (x2 - xa/2))*(-GJ*sc))
+A[9,7] = x2
+A[9,8] = 1
+A[9,11] = sc
+'''RHS(9)'''
+b[9,0] = FRzz*integ.w(x2,4) + sc*GJ*(-P_y*(ha/2 - sc)*(x2 - (x2 - xa/2))) + sc*GJ*integ.t(x2,2)
+
+
 
 
 

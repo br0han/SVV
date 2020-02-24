@@ -33,7 +33,13 @@ d3 = 2.020/100
 
 maxdef = 26 #[deg]
 
-Load2  = 37.0 #[kN]
+Load2  = -37.0 #[kN]
+
+
+#Mat Props
+
+E = 72.9e09
+G = 27.1e09
 
 
 
