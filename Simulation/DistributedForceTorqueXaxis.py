@@ -22,7 +22,7 @@ Coord = np.array(Coord)
 MatrixF , MatrixT , MatrixMF, MatrixMT = DistForceTorqueMatrix() #data,Coord,ShearCenter
 
 
-n = len(MatrixF)+1
+n = len(MatrixF)-1
 Ca = GC.Ca #0.484
 la = GC.la #1.691
 Span = []
@@ -32,6 +32,9 @@ for i in range(1,n+1):
     z = 1/2*(la/2*(1-np.cos(theta0))+la/2*(1-np.cos(theta1)))
     Span.append(z)
 Span = np.array(Span)
+Span = np.append(0,Span)
+Span = np.append(Span,la)
+
 
 
 
