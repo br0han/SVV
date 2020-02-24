@@ -1,0 +1,127 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Feb 24 14:05:00 2020
+
+@author: Burhan
+"""
+
+import numpy as np
+import GlobalConstants as g
+import IntegrateDisForces as integ
+import MoI as moi
+from math imort sin,cos
+
+E = g.E
+G = g.G
+
+la = g.la
+x1 = g.x1
+x2 = g.x2
+x3 = g.x3
+xa = g.xa
+
+ha = g.ha
+
+P = g.Load2
+theta_a = g.maxdef
+
+sc = 0.2 #get Shear centre from marianos code
+
+P_y = P*sin(theta_a)
+P_z = P*cos(theta_a)
+
+
+
+A = np.zeros((12,12))
+b = np.zeros((12, 1))
+
+
+
+'''Row 0 (Mz(la))'''
+A[0,0] = -(la - x1) #Ry1
+A[0,2] = -(la - x2) #Ry2
+A[0,4] = -(la - x3) #Ry3
+A[0,6] = -(la - (x2 - 0.5*xa))*sin(theta_a) #Ray
+''' RHS(0) '''
+b[0,0] = -P_y*(la - (x2 + 0.5*xa)) - integ.w(la, 2)
+
+
+
+''' Row 1 My(la)'''
+A[1,1] = -(la - x1) #Rz1
+A[1,3] = -(la - x2) #Rz2
+A[1,5] = -(la - x3) #Rz3
+A[1,6] = -(la - (x2 - 0.5*xa))*cos(theta_a) #Raz
+'''RHS(1)'''
+b[1,0] = -P_z*(la - (x2 + 0.5*xa))
+
+
+
+'''Row 2 (T(la))'''
+A[2,0] = sc #Ry1
+A[2,2] = sc #Ry2
+A[2,4] = sc #Ry3
+A[2,6] = cos(theta_a)*(ha/2) - sin(theta_a)*(-cs + 0.5*ha) #Ra
+'''RHS(2)'''
+b[2,0] = -P_z*0.5*ha + P_y*(-cs + 0.5*ha) - integ.t(la,1)
+
+
+
+'''Row 3 (Sy(la))'''
+A[3,0] = -1 #Ry1
+A[3,2] = -1 #Ry2
+A[3,4] = -1 #Ry3
+A[3,6] = -cos(theta_a) #Ray
+'''RHS(3)'''
+b[3,0] = -P_y - integ.w(la, 1)
+
+
+
+'''Row 4 (Sz(la))'''
+A[4,1] = -1 #Rz1
+A[4,3] = -1 #Rz2
+A[4,5] = -1 #Rz3
+A[4,6] = -sin(theta_a) #Raz
+'''RHS(4)'''
+b[4,0] = -P_z 
+
+
+
+'''Row 5 w(x1)'''
+A[5,9] = la #Cw1
+A[5,10] = 1 #Cw2
+'''RHS(5)'''
+b[5,0] = d1*sin(theta_a)
+
+
+
+'''Row 6 w(x2)'''
+FRzz = (1/(E*moi.I_zz()))
+A[6,1] = -(1/6)*((x2 - x1)**3)*FRzz #Rz1
+A[6,6] = -(1/6)*((x2 - (x2 - 0.5*xa))**3)*FRzz*cos(theta_a) #Raz
+A[6,9] = x2 #Cw1
+A[6,10] = 1 #Cw2
+'''RHS(6)'''
+#Zero
+
+'''Row 7 w(x3)'''
+A[7,1] = -(1/6)*((x3 - x1)**3)*FRzz #Rz1
+A[7,3] = -(1/6)*((x3-x2)**3)*FRzz #Rz2
+A[7,6] = -(1/6)*((x3-(x2 - 0.5*xa))**3)*FRzz*cos(theta_a) #Raz
+A[7,9] = x3 #Cw1
+A[7,10] = 1 #Cw2
+'''RHS(7)'''
+b[7,0] = -(P_z/6)*((x3 - (x2 + 0.5*xa))**3) + d3*sin(theta_a)
+
+
+
+ 
+
+
+
+
+
+
+
+
+
