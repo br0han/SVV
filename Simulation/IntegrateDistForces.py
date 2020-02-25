@@ -24,7 +24,7 @@ class DistIntegrator:
     CFs = []
     CTs = []
     
-    A, B, Force_Distrib, Torque_Distrib = loads.DistForceTorqueMatrix()
+    Force_Distrib, Torque_Distrib = loads.DistForceTorqueMatrix()
     
     l = len(Force_Distrib)
     
