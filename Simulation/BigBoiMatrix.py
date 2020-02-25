@@ -7,12 +7,11 @@ Created on Mon Feb 24 14:05:00 2020
 
 import numpy as np
 import GlobalConstants as g
-import IntegrateDisForces as integ
+import IntegrateDistForces as idf
 import MoI as moi
 import Jcalc as JJ
-from math imort sin,cos
+from math import sin,cos
 
-integ.setallcoefs()
 
 E = g.E
 G = g.G
@@ -22,6 +21,9 @@ x1 = g.x1
 x2 = g.x2
 x3 = g.x3
 xa = g.xa
+
+d1 = g.d1
+d3 = g.d3
 
 ha = g.ha
 
@@ -33,6 +35,9 @@ sc = 0.2 #get Shear centre from marianos code
 P_y = P*sin(theta_a)
 P_z = P*cos(theta_a)
 
+
+integ = idf.DistIntegrator()
+integ.setallcoefs()
 
 
 A = np.zeros((12,12))
@@ -64,9 +69,9 @@ b[1,0] = -P_z*(la - (x2 + 0.5*xa))
 A[2,0] = sc #Ry1
 A[2,2] = sc #Ry2
 A[2,4] = sc #Ry3
-A[2,6] = cos(theta_a)*(ha/2) - sin(theta_a)*(-cs + 0.5*ha) #Ra
+A[2,6] = cos(theta_a)*(ha/2) - sin(theta_a)*(-sc + 0.5*ha) #Ra
 '''RHS(2)'''
-b[2,0] = -P_z*0.5*ha + P_y*(-cs + 0.5*ha) - integ.t(la,1)
+b[2,0] = -P_z*0.5*ha + P_y*(-sc + 0.5*ha) - integ.t(la,1)
 
 
 
@@ -146,12 +151,12 @@ b[9,0] = FRzz*integ.w(x2,4) + sc*GJ*(-P_y*(ha/2 - sc)*(x2 - (x2 - xa/2))) + sc*G
 '''Row 10 v(x3) - theta(x3)*sc'''
 A[10,0] = -(1/6)*((x3 - x1)**3)*(-FRzz) + sc*(x3 - x1)*(-GJ)*sc #Ry1
 A[10,2] = -(1/6)*((x3 - x2)**3)*(-FRzz) + sc*(x3 - x2)*(-GJ)*sc #Ry2
-A[10,6] = -(1/6)*sin(theta_a)*((x3 - (x2 - xa/2))**3)*(-FRzz) - sin(theta)*(ha/2 - sc)*(x3 - (x2 - xa/2))*(-GJ)*sc + cos(theta_a)*(ha/2)*(x3 - (x2 - xa/2))*(-GJ)*sc
+A[10,6] = -(1/6)*sin(theta_a)*((x3 - (x2 - xa/2))**3)*(-FRzz) - sin(theta_a)*(ha/2 - sc)*(x3 - (x2 - xa/2))*(-GJ)*sc + cos(theta_a)*(ha/2)*(x3 - (x2 - xa/2))*(-GJ)*sc
 A[10,7] = x3
 A[10,9] = 1
 A[10,11] = -1
 '''RHS(10)'''
-b[10, 0] = FRzz*(P_y/6)*((x3 - (x2 + xa/2))**3) + FRzz*integ(x3,4) + GJ*sc*((P_z*(ha/2)*(x3 - (x2 + xa/2)))- (P_y*(ha/2 - sc)*(x3 - (x2 - xa/2))) + (integ.t(x3,2))) + d3*cos(theta_a)
+b[10, 0] = FRzz*(P_y/6)*((x3 - (x2 + xa/2))**3) + FRzz*integ.w(x3,4) + GJ*sc*((P_z*(ha/2)*(x3 - (x2 + xa/2)))- (P_y*(ha/2 - sc)*(x3 - (x2 - xa/2))) + (integ.t(x3,2))) + d3*cos(theta_a)
  
 
 

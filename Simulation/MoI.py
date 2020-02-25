@@ -86,8 +86,7 @@ def I_yy():
 
 
 
-print (I_yy(), I_zz())
-    
+
     
     
     
