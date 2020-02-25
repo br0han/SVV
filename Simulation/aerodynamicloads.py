@@ -107,9 +107,9 @@ def DistForceTorqueMatrix():
 
     
 
-    return MatrixF, MatrixT , MatrixMF ,MatrixMT 
+    return MatrixMF ,MatrixMT 
 
-MatrixF, MatrixT ,MatrixMF ,MatrixMT = DistForceTorqueMatrix()
+MatrixMF ,MatrixMT = DistForceTorqueMatrix()
     
 
 

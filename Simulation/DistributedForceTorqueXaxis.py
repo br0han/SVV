@@ -19,8 +19,9 @@ for i in range(1,n+1):
     Coord.append(z)
 Coord = np.array(Coord)
 """
-MatrixF , MatrixT , MatrixMF, MatrixMT = DistForceTorqueMatrix() #data,Coord,ShearCenter
-
+MatrixMF, MatrixMT = DistForceTorqueMatrix() #data,Coord,ShearCenter
+MatrixF = MatrixMF[:-1,:-1]
+MatrixT = MatrixMT[:-1,:-1]
 
 n = len(MatrixF)-1
 Ca = GC.Ca #0.484
