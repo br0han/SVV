@@ -78,7 +78,7 @@ x = np.linspace(integ.xnodes[0], integ.xnodes[-1], 10000)
 M = np.zeros(len(x))
 
 for i in range (len(x)):
-    M[i] = Mz(x[i])
+    M[i] = v(x[i])
     
 plt.plot(x, M)
 plt.grid(1)

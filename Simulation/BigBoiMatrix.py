@@ -32,7 +32,7 @@ def getunknowns():
     P = g.Load2
     theta_a = radians(g.maxdef)
     
-    sc = 0.007 #get Shear centre from marianos code
+    sc = 0.0 #get Shear centre from marianos code
     
     P_y = P*sin(theta_a)
     P_z = P*cos(theta_a)
