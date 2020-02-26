@@ -32,7 +32,7 @@ def getunknowns():
     P = g.Load2
     theta_a = radians(g.maxdef)
     
-    sc = 0.0 #get Shear centre from marianos code
+    sc = 0.007 #get Shear centre from marianos code
     
     P_y = P*sin(theta_a)
     P_z = P*cos(theta_a)
@@ -244,7 +244,7 @@ def getunknowns():
     # b[11,0] = FRzz*integ.w((x2 - xa/2), 4)
     
 
-    '''Row 11 (v(xaI) - theta(xaI)*(ha/2 - cs))*sin(theta_a) + (w(xaI) + theta(xaI)*(ha/2))*cos(theta_a) = 0'''    
+    '''Row 11 (v(xaI) - theta(xaI)*(ha/2 - sc))*sin(theta_a) + (w(xaI) + theta(xaI)*(ha/2))*cos(theta_a) = 0'''    
     x = x2 - xa/2
     
     A[11, 0] = ((FRzz/6)*((x - x1)**3) - (GJ*sc*(x - x1)))*sin(theta_a) + (GJ*sc*((x - x1)**3))*cos(theta_a)

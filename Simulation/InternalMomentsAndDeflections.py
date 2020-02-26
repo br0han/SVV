@@ -69,16 +69,25 @@ def My(x):
     
     return (-Rz1*step(x - x1,1) - Raz*step(x - (x2 - xa/2), 1) - Rz2*step(x - x2, 1) + Pz*step(x - (x2 + xa/2), 1) - Rz3*step(x - x3, 1))
 
+def T(x):
+    
+    return (Ry1*sc*step(x - x1, 0) + Raz*(ha/2)*step(x - (x2 - xa/2), 0) - Ray*(ha/2 - sc)*step(x - (x2 - xa/2), 0) + Ry2*sc*step(x - x2, 0) - Pz*(ha/2)*step(x - (x2 + xa/2), 0) + Py*(ha/2 - sc)*step(x - (x2 + xa/2), 0) + Ry3*sc*step(x - x3, 0) + integ.t(x,1))
+
 def v(x):
    
     return (FRzz*((Ry1/6)*step(x - x1, 1) + (Ray/6)*step(x - (x2 - xa/2), 3) + (Ry2/6)*step(x - x2, 3) - (Py/6)*step(x - (x2 + xa/2), 3) + (Ry3/6)*step(x - x3, 3) - integ.w(x, 4) - Cv1*x - Cv2))
 
-   
+def w(x):
+    
+    return (FRyy*((Rz1/6)*step(x - x1, 3) + (Raz/6)*step(x - (x2 - xa/2), 3) + (Rz2/6)*step(x - x2, 3) - (Pz/6)*step(x - (x2 + xa/2), 3) + (Rz3/6)*step(x - x3, 3) - Cw1*x - Cw2))
+
+
+    
 x = np.linspace(integ.xnodes[0], integ.xnodes[-1], 10000)
 M = np.zeros(len(x))
 
 for i in range (len(x)):
-    M[i] = v(x[i])
+    M[i] = w(x[i])
     
 plt.plot(x, M)
 plt.grid(1)
