@@ -96,7 +96,7 @@ def theta(x):
 
     
 x = np.linspace(integ.xnodes[0], integ.xnodes[-1], 10000)
-mz, my, t, sy, sz, vv, ww, tee = np.zeros(len(x))
+M = np.zeros(len(x))
 
 for i in range (len(x)):
     M[i] = Mz(x[i])
