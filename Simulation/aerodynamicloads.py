@@ -51,9 +51,23 @@ def DistForceTorqueMatrix():
          
 
             #----------------Part to find the point force line of action
+            # Thursday I will have to Change this part with more accurate Done!!!!
             Moment = 0
             for j in range(len(val)-1):
-                Moment = ((CoefInt[j,0]*abs(Coord[j+1])**4 + CoefInt[j,1]*abs(Coord[j+1])**3 +CoefInt[j,2]*abs(Coord[j+1])**2+CoefInt[j,3]*abs(Coord[j+1])**1)-(CoefInt[j,0]*abs(Coord[j])**4 + CoefInt[j,1]*abs(Coord[j])**3 +CoefInt[j,2]*abs(Coord[j])**2+CoefInt[j,3]*abs(Coord[j])**1)) * (abs(Coord[j+1])-abs(Coord[j]))/2 + Moment
+                M = 0
+                F = 0
+                for i in np.linspace(0,Coord[j+1]-Coord[j],1000):
+                    M = M + (CoefM[j,0]*abs(i)**3 +CoefM[j,1]*abs(i)**2 +CoefM[j,2]*abs(i) +CoefM[j,3])*abs(i)
+                    F = F + (CoefM[j,0]*abs(i)**3 +CoefM[j,1]*abs(i)**2 +CoefM[j,2]*abs(i) +CoefM[j,3])
+                ARM = M / F 
+                    
+                Moment = ((CoefInt[j,0]*abs(Coord[j+1])**4 + CoefInt[j,1]*abs(Coord[j+1])**3 +CoefInt[j,2]*abs(Coord[j+1])**2+CoefInt[j,3]*abs(Coord[j+1])**1)-(CoefInt[j,0]*abs(Coord[j])**4 + CoefInt[j,1]*abs(Coord[j])**3 +CoefInt[j,2]*abs(Coord[j])**2+CoefInt[j,3]*abs(Coord[j])**1))* (abs(Coord[j])+ARM)/2 + Moment
+            
+             
+
+
+                
+                #Moment = ((CoefInt[j,0]*abs(Coord[j+1])**4 + CoefInt[j,1]*abs(Coord[j+1])**3 +CoefInt[j,2]*abs(Coord[j+1])**2+CoefInt[j,3]*abs(Coord[j+1])**1)-(CoefInt[j,0]*abs(Coord[j])**4 + CoefInt[j,1]*abs(Coord[j])**3 +CoefInt[j,2]*abs(Coord[j])**2+CoefInt[j,3]*abs(Coord[j])**1))* (abs(Coord[j+1]+abs(Coord[j])))/2 + Moment
 
             POA = Moment / Force * -1
             #print(POA)
