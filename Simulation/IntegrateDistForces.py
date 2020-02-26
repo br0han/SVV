@@ -107,14 +107,14 @@ class DistIntegrator:
                     
                 break
         
-        return(w)
+        return(-w)
     
     def t(self, x, il):
         
         '''This function calculates the value of the (il)^th integral of the 
            torque distribution at x'''
         
-        w = 0
+        t = 0
         
         for i in range (1,self.l):
         
@@ -124,11 +124,11 @@ class DistIntegrator:
                     
                     e = 3 - j + il
                     
-                    w += self.CTs[il, i-1, j]*((x - self.xnodes[i-1])**e)
+                    t += self.CTs[il, i-1, j]*((x - self.xnodes[i-1])**e)
                     
                 break
         
-        return(w)
+        return(t)
 
 
 
@@ -139,7 +139,7 @@ class DistIntegrator:
 # integ.setallcoefs()
 
 
-# x = np.linspace(integ.xnodes[0], integ.xnodes[-1], 200)
+# x = np.linspace(integ.xnodes[0], integ.xnodes[-1], 10000)
 # dx = x[1]-x[0]
 
 # y0 = np.zeros(len(x))
