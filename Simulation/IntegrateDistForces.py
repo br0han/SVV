@@ -107,7 +107,7 @@ class DistIntegrator:
                     
                 break
         
-        return(w)
+        return(-w)
     
     def t(self, x, il):
         
@@ -149,11 +149,11 @@ class DistIntegrator:
 # y4 = np.zeros(len(x))
 
 # for i in range (len(x)):
-#     y0[i] = integ.w(x[i], 0)
-#     y1[i] = integ.w(x[i], 1)
-#     y2[i] = integ.w(x[i], 2)
-#     y3[i] = integ.w(x[i], 3)
-#     y4[i] = integ.w(x[i], 4)
+#     y0[i] = integ.t(x[i], 0)
+#     y1[i] = integ.t(x[i], 1)
+#     y2[i] = integ.t(x[i], 2)
+#     y3[i] = integ.t(x[i], 3)
+#     y4[i] = integ.t(x[i], 4)
     
 # S1 = 0
 # S2 = 0
