@@ -62,7 +62,7 @@ def step(x, p):
         return (x**p)
     
 def Mz(x):
-    
+    '''Internal moment about z'''
     return (-Ry1*step(x - x1, 1) - Ray*step(x - (x2 - xa/2), 1) - Ry2*step(x - x2, 1) + Py*step(x - (x2 + xa/2), 1) - Ry3*step(x - x3, 1) + integ.w(x,2))
 
 def My(x):
@@ -78,10 +78,11 @@ x = np.linspace(integ.xnodes[0], integ.xnodes[-1], 10000)
 M = np.zeros(len(x))
 
 for i in range (len(x)):
-    M[i] = My(x[i])
+    M[i] = Mz(x[i])
     
 plt.plot(x, M)
 plt.grid(1)
+#plt.matshow(lol)
 plt.show()
 
     
