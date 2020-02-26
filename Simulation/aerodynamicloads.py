@@ -11,7 +11,7 @@ def DistForceTorqueMatrix():
     val = data[:,1]
     val = np.append(0,val)
     val = np.append(val,0)
-    ShearCenter = 0.0 ##changed to 0 from 0.007
+    ShearCenter = 0.007 ##changed to 0 from 0.007
 
     n=len(val)
     Ca = GC.Ca #0.484

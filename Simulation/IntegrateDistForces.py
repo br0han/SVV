@@ -173,10 +173,10 @@ class DistIntegrator:
 
     
 # plt.plot(x,y0)
-# plt.plot(x,y1)
-# plt.plot(x,y2)
-# plt.plot(x,y3)
-# plt.plot(x,y4)
+# # plt.plot(x,y1)
+# # plt.plot(x,y2)
+# # plt.plot(x,y3)
+# # plt.plot(x,y4)
 # plt.grid(True)
 # plt.show()
 

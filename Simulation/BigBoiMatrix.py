@@ -263,7 +263,7 @@ def getunknowns():
     
     xx = np.linalg.solve(A, b)
     
-    Fy = integ.w(la,1) - P_y
+    Fy = integ.w(la,1) + P_y
     Fz = -P_z
     
     return (A, xx, Fy, Fz)
