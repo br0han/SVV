@@ -67,7 +67,7 @@ def DistForceTorqueMatrix():
 
 
                 
-                #Moment = ((CoefInt[j,0]*abs(Coord[j+1])**4 + CoefInt[j,1]*abs(Coord[j+1])**3 +CoefInt[j,2]*abs(Coord[j+1])**2+CoefInt[j,3]*abs(Coord[j+1])**1)-(CoefInt[j,0]*abs(Coord[j])**4 + CoefInt[j,1]*abs(Coord[j])**3 +CoefInt[j,2]*abs(Coord[j])**2+CoefInt[j,3]*abs(Coord[j])**1))* (abs(Coord[j+1]+abs(Coord[j])))/2 + Moment
+                #Moment = ((CoefInt[j,0]*abs(Coord[j+1])**4 + CoefInt[j,1]*abs(Coord[j+1])**3 +CoefInt[j,2]*abs(Coord[j+1])**2+CoefInt[j,3]*abs(Coord[j+1])**1)-(CoefInt[j,0]*abs(Coord[j])**4 + CoefInt[j,1]*abs(Coord[j])**3 +CoefInt[j,2]*abs(Coord[j])**2+CoefInt[j,3]*abs(Coord[j])**1))* (abs(Coord[j+1])+abs(Coord[j]))/2 + Moment
 
             POA = Moment / Force * -1
             #print(POA)
