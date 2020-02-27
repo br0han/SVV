@@ -11,7 +11,7 @@ def DistForceTorqueMatrix():
 
     data = np.genfromtxt('aerodynamicloadcrj700.dat', dtype=None, delimiter=',')
     
-    ShearCenter = -0.0053559495 ##changed to 0 from 0.007
+    ShearCenter = 0.007 ##changed to 0 from 0.007
     
     Ca = GC.Ca #0.484
     la = GC.la #1.691
