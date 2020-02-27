@@ -3,12 +3,8 @@ import numpy as np
 # Every parameter should be unit of [m].
 import GlobalConstants as G
 
-def Coord_out():
+def Coord_out(Ca = G.Ca, h = G.ha, Nst = G.nst):
 
-    # Values for B737, comment out if using the CRJ700 inputs for the function
-    Ca = G.Ca  # [m]
-    h = G.ha  # [m]
-    Nst = G.nst  # [ ]
 
     r = h / 2 # [m]
 
