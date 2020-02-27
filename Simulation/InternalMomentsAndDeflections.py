@@ -22,20 +22,17 @@ Cv1 = Cs[7]; Cv2 = Cs[8]; Cw1 = Cs[9]; Cw2 = Cs[10]; Ct = Cs[11]
 E = g.E
 G = g.G
 
-la = g.la; x1 = g.x1; x2 = g.x2; x3 = g.x3; xa = g.xa
+la = g.la; x1 = g.x1; x2 = g.x2; x3 = g.x3; xa = g.xa; ha = g.ha
 
 d1 = g.d1
 d3 = g.d3
-
-ha = g.ha
-
 P = g.Load2
 theta_a = radians(g.maxdef)
 
-print ("Ry", Cs[0] + Cs[2] + Cs[4] + Cs[6]*sin(theta_a))
-print ("FY", FY)
-print ("Rz", Cs[1] + Cs[3] + Cs[5] + Cs[6]*cos(theta_a))
-print ("FZ", FZ)
+# print ("Ry", Cs[0] + Cs[2] + Cs[4] + Cs[6]*sin(theta_a))
+# print ("FY", FY)
+# print ("Rz", Cs[1] + Cs[3] + Cs[5] + Cs[6]*cos(theta_a))
+# print ("FZ", FZ)
 
 sc = 0.007 #get Shear centre from marianos code
 
@@ -49,7 +46,7 @@ GJ = (1/(G*(JJ.J())))       #Flexural rigidity stuff
 FRzz = (1/(E*moi.I_zz()))
 FRyy = (1/(E*moi.I_yy()))
 
-integ = idf.DistIntegrator()
+integ = idf.DistIntegrator()  
 
 
 def step(x, p):
@@ -93,21 +90,21 @@ def theta(x):
     return -(GJ*(Ry1*sc*step(x - x1, 1) + Raz*(ha/2)*step(x - (x2 - xa/2), 1) - Ray*(ha/2 - sc)*step(x - (x2 - xa/2), 1) + Ry2*sc*step(x - x1, 1) - Pz*(ha/2)*step(x - (x2 + xa/2), 1) + Py*(ha/2 - sc)*step(x - (x2 + xa/2), 1) + Ry3*sc*step(x - x3, 1) + integ.t(x, 2) + Ct))
 
 
-print(v(x1)/cos(theta_a)*100, 100*v(x2), v(x3)/cos(theta_a)*100)
+# print(v(x1)/cos(theta_a)*100, 100*v(x2), v(x3)/cos(theta_a)*100)
 
-print(w(x1)/sin(theta_a)*100, 100*w(x2), w(x3)/sin(theta_a)*100)
+# print(w(x1)/sin(theta_a)*100, 100*w(x2), w(x3)/sin(theta_a)*100)
 
     
-x = np.linspace(integ.xnodes[0], integ.xnodes[-1], 1000)
-M = np.zeros(len(x))
+# x = np.linspace(integ.xnodes[0], integ.xnodes[-1], 1000)
+# M = np.zeros(len(x))
 
-for i in range (len(x)):
-    M[i] = T(x[i])
+# for i in range (len(x)):
+#     M[i] = T(x[i])
     
-plt.plot(x, M)
-plt.grid(1)
-#plt.matshow(lol)
-plt.show()
+# plt.plot(x, M)
+# plt.grid(1)
+# #plt.matshow(lol)
+# plt.show()
 
     
     

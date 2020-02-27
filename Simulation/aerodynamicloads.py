@@ -4,11 +4,11 @@ from matplotlib import pyplot as plt
 from cubicspline import cubicspline
 import MyNewIntegralForTorque as icf
 
+import time
 
 
 def DistForceTorqueMatrix():
     
-
     data = np.genfromtxt('aerodynamicloadcrj700.dat', dtype=None, delimiter=',')
     
     ShearCenter = 0.007 ##changed to 0 from 0.007
@@ -16,7 +16,6 @@ def DistForceTorqueMatrix():
     Ca = GC.Ca #0.484
     la = GC.la #1.691
     ha = GC.ha
-    
     
     Coord = []
     for i in range(1,82):
@@ -52,10 +51,8 @@ def DistForceTorqueMatrix():
         integ = icf.DistChordIntegrator(CoefM, Coord)
         integ.setallcoefs()
         
-        
         #Force calc
         Force_Distrib[i] = integ.w(Ca, 1)
-        
         
         #Torque calc
         x = np.linspace(0, Ca, 10000)
@@ -63,22 +60,20 @@ def DistForceTorqueMatrix():
         dx = Ca/len(x)
    
         F0 = np.zeros(len(x))
-   
+        
         for k in range (len(x)):
             F0[k] = integ.w(x[k], 0)
-    
+          
         Fx = 0
         for j in range (len(x) - 1):
             Fx += ((F0[j] + F0[j+1])*0.5)*(x[j]+0.5*dx)*dx
-            
-            
+                   
         PoA = -(Fx/integ.w(Ca,1) - ha/2)
         
         D2sc = PoA - ShearCenter
         
         Torque_Distrib[i] = integ.w(Ca, 1)*D2sc
-        
-        
+           
     Force_Distrib = np.append(0, Force_Distrib)
     Force_Distrib = np.append(Force_Distrib, 0)
     
@@ -99,7 +94,5 @@ def DistForceTorqueMatrix():
 
     
     return (FD, TD)
-
-    
 
 

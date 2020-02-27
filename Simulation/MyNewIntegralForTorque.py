@@ -8,9 +8,7 @@ Created on Thu Feb 27 14:57:01 2020
 
 
 import numpy as np
-import GlobalConstants as g
-import aerodynamicloads as loads
-from matplotlib import pyplot as plt
+
 
 
 class DistChordIntegrator:
@@ -23,6 +21,8 @@ class DistChordIntegrator:
         self.Ccs = np.zeros((5, self.l - 1, 10))
         self.Ccs[0, :, :4] = C0cs
         self.nodes = nodes #np.zeros((l, 1)) 
+
+
 
     def setcoefs(self, f = 0):
     
@@ -72,8 +72,12 @@ class DistChordIntegrator:
                     
                     self.Ccs[4, i, 7] += ((self.nodes[i] - self.nodes[i-1])**(7-k))*(self.Ccs[4, i-1, k])
                     
+                    
+                    
     def setallcoefs(self, f = 0):
         self.setcoefs()
+    
+    
     
     def w(self, x, il, f = 0):
         
@@ -97,10 +101,5 @@ class DistChordIntegrator:
                 break
         
         return(w)
-    
-#c1 = np.ones((82, 4))
-    
-    
-#integ = DistChordIntegrator(c1)
     
     
