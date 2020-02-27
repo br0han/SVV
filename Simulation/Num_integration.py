@@ -21,10 +21,3 @@ def Simpson38_int (f, l_limit, u_limit): ### function to integrate, upper limit,
     return (result)
 
 
-
-
-
-
-
-
-

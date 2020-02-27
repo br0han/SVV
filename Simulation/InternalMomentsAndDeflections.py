@@ -4,9 +4,7 @@ Created on Tue Feb 25 16:25:44 2020
 
 @author: Burhan
 """
-import numpy as np
 from math import sin,cos, radians
-from matplotlib import pyplot as plt
 import GlobalConstants as g
 import MoI as moi
 import Jcalc as JJ
@@ -94,17 +92,6 @@ def theta(x):
 
 # print(w(x1)/sin(theta_a)*100, 100*w(x2), w(x3)/sin(theta_a)*100)
 
-    
-# x = np.linspace(integ.xnodes[0], integ.xnodes[-1], 1000)
-# M = np.zeros(len(x))
-
-# for i in range (len(x)):
-#     M[i] = T(x[i])
-    
-# plt.plot(x, M)
-# plt.grid(1)
-# #plt.matshow(lol)
-# plt.show()
 
     
     

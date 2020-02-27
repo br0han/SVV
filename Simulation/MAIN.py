@@ -7,6 +7,11 @@ Created on Thu Feb 27 22:37:06 2020
 MAIN
 """
 
+import time
+
+t0 = time.time()
+
+
 import numpy as np
 import GlobalConstants as g
 import InternalMomentsAndDeflections as graph
@@ -25,6 +30,8 @@ v = np.zeros_like(x)
 w = np.zeros_like(x)
 theta = np.zeros_like(x)
 
+
+
 for i in range(N):
     
     My[i] = graph.My(x[i])
@@ -34,9 +41,13 @@ for i in range(N):
     T[i] = graph.T(x[i])
     v[i] = graph.v(x[i])
     w[i] = graph.w(x[i])
-    theta[i] = graph.theta(x[i])
+    theta[i] = graph.theta(x[i])*(180/np.pi)
     
-    
+print (time.time() - t0)
+
+# plt.plot(x, theta)
+# plt.grid(1)
+# plt.show()
     
     
 fig, ax = plt.subplots(1, 3, figsize = (24, 8));
@@ -94,7 +105,7 @@ ax[1].plot(x, theta);
 ax[1].set_title('Twist');
 ax[1].grid(True);
 ax[1].set_xlabel("x [m]");
-ax[1].set_ylabel("w [m]");
+ax[1].set_ylabel("theta [m]");
 plt.tight_layout()
 
 

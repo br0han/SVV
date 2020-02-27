@@ -1,6 +1,5 @@
 import GlobalConstants as GC
 import numpy as np
-from matplotlib import pyplot as plt
 from cubicspline import cubicspline
 import MyNewIntegralForTorque as icf
 
@@ -8,6 +7,8 @@ import time
 
 
 def DistForceTorqueMatrix():
+    
+    print ("Called")
     
     data = np.genfromtxt('aerodynamicloadcrj700.dat', dtype=None, delimiter=',')
     
@@ -55,18 +56,20 @@ def DistForceTorqueMatrix():
         Force_Distrib[i] = integ.w(Ca, 1)
         
         #Torque calc
-        x = np.linspace(0, Ca, 10000)
+        x = np.linspace(0, Ca, 3000)
     
         dx = Ca/len(x)
    
         F0 = np.zeros(len(x))
         
         for k in range (len(x)):
+            
             F0[k] = integ.w(x[k], 0)
-          
+        
         Fx = 0
         for j in range (len(x) - 1):
             Fx += ((F0[j] + F0[j+1])*0.5)*(x[j]+0.5*dx)*dx
+       
                    
         PoA = -(Fx/integ.w(Ca,1) - ha/2)
         
@@ -94,5 +97,4 @@ def DistForceTorqueMatrix():
 
     
     return (FD, TD)
-
 
