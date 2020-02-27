@@ -154,7 +154,6 @@ class DistIntegrator:
 #     y2[i] = integ.t(x[i], 2)
 #     y3[i] = integ.t(x[i], 3)
 #     y4[i] = integ.t(x[i], 4)
-    
 # S1 = 0
 # S2 = 0
 # S3 = 0
@@ -173,10 +172,10 @@ class DistIntegrator:
 
     
 # plt.plot(x,y0)
-# # plt.plot(x,y1)
-# # plt.plot(x,y2)
-# # plt.plot(x,y3)
-# # plt.plot(x,y4)
+# plt.plot(x,y1)
+# plt.plot(x,y2)
+# plt.plot(x,y3)
+# plt.plot(x,y4)
 # plt.grid(True)
 # plt.show()
 

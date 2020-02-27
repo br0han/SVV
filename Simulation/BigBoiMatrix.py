@@ -242,21 +242,38 @@ def getunknowns():
     # '''RHS(11)'''
     # b[11,0] = FRzz*integ.w((x2 - xa/2), 4)
     
-
-    '''Row 11 (v(xaI) - theta(xaI)*(ha/2 - sc))*sin(theta_a) + (w(xaI) + theta(xaI)*(ha/2))*cos(theta_a) = 0'''    
+    '''revert to this if next attempt doesnt work'''
+    # '''Row 11 (v(xaI) - theta(xaI)*(ha/2 - sc))*sin(theta_a) + (w(xaI) + theta(xaI)*(ha/2))*cos(theta_a) = 0'''    
+    # x = x2 - xa/2
+    
+    # A[11, 0] = ((FRzz/6)*((x - x1)**3) - (GJ*sc)*(ha/2 - sc)*(x - x1))*sin(theta_a) + ((GJ*sc)*(ha/2)*((x - x1)**3))*cos(theta_a)
+    # ##A[11, 0] = (FRzz/6)*((x - x1)**3)*sin(theta_a)
+    # A[11, 1] = (FRyy/6)*((x - x1)**3)*cos(theta_a)
+    # ##A[11, 6] = ((FRzz/6)*sin(theta_a) - GJ*(cos(theta_a)*(ha/2) - (ha/2 - sc)*sin(theta_a)))*sin(theta_a) + (FRyy*cos(theta_a) + GJ*((ha/2)*cos(theta_a) - (ha/2 - sc)*sin(theta_a)))*cos(theta_a)
+    # A[11, 7] = (-FRzz*x)*sin(theta_a) 
+    # A[11, 8] = (-FRzz)*sin(theta_a)
+    # A[11, 9] = (-FRyy*x)*cos(theta_a)
+    # A[11,10] = (-FRyy)*cos(theta_a)
+    # A[11,11] = (-GJ)*(ha/2 - sc)*sin(theta_a) + GJ*(ha/2)*cos(theta_a)   
+    # '''RHS(11)'''
+    # b[11, 0] = (FRzz*integ.w(x, 4) + GJ*(ha/2 - sc)*integ.t(x, 2))*sin(theta_a) - (GJ*(ha/2)*integ.t(x, 2))*cos(theta_a)
+    # ###b[11, 0] = (FRzz*integ.w(x, 4))*sin(theta_a)
+    
+    
+    '''Row 11 (v(xaI) + theta(xaI)*(sc))*sin(theta_a) + w(xaI)*cos(theta_a) = 0'''    
     x = x2 - xa/2
     
-    A[11, 0] = ((FRzz/6)*((x - x1)**3) - (GJ*sc)*(ha/2 - sc)*(x - x1))*sin(theta_a) + ((GJ*sc)*(ha/2)*((x - x1)**3))*cos(theta_a)
+    ## A[11, 0] = ((FRzz/6)*((x - x1)**3) - (GJ*sc)*(ha/2 - sc)*(x - x1))*sin(theta_a) + ((GJ*sc)*(ha/2)*((x - x1)**3))*cos(theta_a)
+    A[11, 0] = (FRzz/6)*((x - x1)**3)*sin(theta_a) + (sc*GJ)*sc*(x - x1)*sin(theta_a)
     A[11, 1] = (FRyy/6)*((x - x1)**3)*cos(theta_a)
-    ##A[11, 6] = ((FRzz/6)*sin(theta_a) - GJ*(cos(theta_a)*(ha/2) - (ha/2 - sc)*sin(theta_a)))*sin(theta_a) + (FRyy*cos(theta_a) + GJ*((ha/2)*cos(theta_a) - (ha/2 - sc)*sin(theta_a)))*cos(theta_a)
     A[11, 7] = (-FRzz*x)*sin(theta_a) 
     A[11, 8] = (-FRzz)*sin(theta_a)
     A[11, 9] = (-FRyy*x)*cos(theta_a)
     A[11,10] = (-FRyy)*cos(theta_a)
-    A[11,11] = (-GJ)*(ha/2 - sc)*sin(theta_a) + GJ*(ha/2)*cos(theta_a)   
+    A[11,11] = (sc*GJ)*sin(theta_a)  
     '''RHS(11)'''
-    b[11, 0] = (FRzz*integ.w(x, 4) + GJ*(ha/2 - sc)*integ.t(x, 2))*sin(theta_a) - (GJ*(ha/2)*integ.t(x, 2))*cos(theta_a)
-    
+    b[11, 0] = (FRzz*integ.w(x, 4) - (sc*GJ)*integ.t(x, 2))*sin(theta_a)
+    ###b[11, 0] = (FRzz*integ.w(x, 4))*sin(theta_a)
     
     
     

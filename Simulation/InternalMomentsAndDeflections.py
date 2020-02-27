@@ -16,7 +16,6 @@ import BigBoiMatrix as solvedunkowns
 lol, Cs, FY, FZ = solvedunkowns.getunknowns()
 
 
-
 Ry1 = Cs[0]; Rz1 = Cs[1]; Ry2 = Cs[2]; Rz2 = Cs[3]; Ry3 = Cs[4]; Rz3 = Cs[5]; Ra  = Cs[6]
 Cv1 = Cs[7]; Cv2 = Cs[8]; Cw1 = Cs[9]; Cw2 = Cs[10]; Ct = Cs[11]
 
@@ -83,7 +82,7 @@ def Sz(x):
 
 def v(x):
     '''Deflection in y'''
-    return (FRzz*((Ry1/6)*step(x - x1, 1) + (Ray/6)*step(x - (x2 - xa/2), 3) + (Ry2/6)*step(x - x2, 3) - (Py/6)*step(x - (x2 + xa/2), 3) + (Ry3/6)*step(x - x3, 3) - integ.w(x, 4) - Cv1*x - Cv2))
+    return (FRzz*((Ry1/6)*step(x - x1, 3) + (Ray/6)*step(x - (x2 - xa/2), 3) + (Ry2/6)*step(x - x2, 3) - (Py/6)*step(x - (x2 + xa/2), 3) + (Ry3/6)*step(x - x3, 3) - integ.w(x, 4) - Cv1*x))
 
 def w(x):
     '''Deflection in z'''
