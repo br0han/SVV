@@ -107,7 +107,7 @@ class DistIntegrator:
                     
                 break
         
-        return(-w)
+        return(w)
     
     def t(self, x, il):
         

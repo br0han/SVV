@@ -32,7 +32,7 @@ def getunknowns():
     P = g.Load2
     theta_a = radians(g.maxdef)
     
-    sc = 0.007 #get Shear centre from marianos code
+    sc = -0.0053559495 #get Shear centre from marianos code
     
     P_y = P*sin(theta_a)
     P_z = P*cos(theta_a)
@@ -41,7 +41,6 @@ def getunknowns():
     integ = idf.DistIntegrator()
     integ.setallcoefs()
     
-    print(integ.w(la,1))
     
     
     A = np.zeros((12,12))
@@ -176,7 +175,7 @@ def getunknowns():
     # '''RHS(8)'''
     # b[8,0] = FRzz*integ.w(x1, 4) + sc*GJ*integ.t(x1,2) + d1*cos(theta_a)
     
-    '''Row 8 v(x1) + sc*theta(x1) = dzcos(theta_a)'''
+    '''Row 8 v(x1) + sc*theta(x1) = d1cos(theta_a)'''
     GJ = (1/(G*(JJ.J())))
     FRzz = (1/(E*moi.I_zz()))
     
@@ -201,7 +200,7 @@ def getunknowns():
     '''Row 9 v(x2) + sc*theta(x2) = 0'''
     A[9,0] = (FRzz/6)*((x2 - x1)**3) + (sc*GJ)*(x2-x1)*sc #Ry1
     ##A[9,2] = (FRzz/6) + (sc*GJ)*sc  #Ry2
-    A[9,6] = (FRzz/6)*cos(theta_a)*((x2 - (x2 - xa/2))**3) + (sc*GJ)*(cos(theta_a)*(ha/2)*(x2 - (x2 - xa/2)) - (sin(theta_a)*(ha/2 - sc)*(x2 - (x2 - xa/2))))
+    A[9,6] = (FRzz/6)*sin(theta_a)*((x2 - (x2 - xa/2))**3) + (sc*GJ)*(cos(theta_a)*(ha/2)*(x2 - (x2 - xa/2)) - (sin(theta_a)*(ha/2 - sc)*(x2 - (x2 - xa/2))))
     A[9,7] = -(FRzz)*x2   #Cv1
     A[9,8] = -(FRzz)    #Cv2
     A[9,11] = (sc*GJ) #Ctheta
@@ -227,9 +226,9 @@ def getunknowns():
     A[10,6] = (FRzz/6)*sin(theta_a)*((x3 - (x2 - xa/2))**3) + (sc*GJ)*(cos(theta_a)*(ha/2)*(x3 - (x2 - xa/2)) - sin(theta_a)*(ha/2 - sc)*(x3 - (x2 - xa/2))) 
     A[10,7] = -(FRzz)*x3 #Cv1
     A[10,8] = -(FRzz) #Cv2
-    A[10,11] = -(sc*GJ) #Ctheta
+    A[10,11] = (sc*GJ) #Ctheta
     '''RHS(10)'''
-    b[10, 0] = (FRzz/6)*P_y*((x3 - (x2 + xa/2))**3) + FRzz*integ.w(x3,4) + (GJ*sc)*((P_z*(ha/2)*(x3 - (x2 + xa/2))) - (P_y*(ha/2 - sc)*(x3 - (x2 - xa/2))) - (integ.t(x3,2))) + d3*cos(theta_a)
+    b[10, 0] = (FRzz/6)*P_y*((x3 - (x2 + xa/2))**3) + FRzz*integ.w(x3,4) + (GJ*sc)*((P_z*(ha/2)*(x3 - (x2 + xa/2))) - (P_y*(ha/2 - sc)*(x3 - (x2 + xa/2))) - (integ.t(x3,2))) + d3*cos(theta_a)
     
     
     
@@ -247,23 +246,23 @@ def getunknowns():
     '''Row 11 (v(xaI) - theta(xaI)*(ha/2 - sc))*sin(theta_a) + (w(xaI) + theta(xaI)*(ha/2))*cos(theta_a) = 0'''    
     x = x2 - xa/2
     
-    A[11, 0] = ((FRzz/6)*((x - x1)**3) - (GJ*sc*(x - x1)))*sin(theta_a) + (GJ*sc*((x - x1)**3))*cos(theta_a)
+    A[11, 0] = ((FRzz/6)*((x - x1)**3) - (GJ*sc)*(ha/2 - sc)*(x - x1))*sin(theta_a) + ((GJ*sc)*(ha/2)*((x - x1)**3))*cos(theta_a)
     A[11, 1] = (FRyy/6)*((x - x1)**3)*cos(theta_a)
     ##A[11, 6] = ((FRzz/6)*sin(theta_a) - GJ*(cos(theta_a)*(ha/2) - (ha/2 - sc)*sin(theta_a)))*sin(theta_a) + (FRyy*cos(theta_a) + GJ*((ha/2)*cos(theta_a) - (ha/2 - sc)*sin(theta_a)))*cos(theta_a)
     A[11, 7] = (-FRzz*x)*sin(theta_a) 
     A[11, 8] = (-FRzz)*sin(theta_a)
     A[11, 9] = (-FRyy*x)*cos(theta_a)
     A[11,10] = (-FRyy)*cos(theta_a)
-    A[11,11] = (-GJ)*sin(theta_a) + GJ*cos(theta_a)   
+    A[11,11] = (-GJ)*(ha/2 - sc)*sin(theta_a) + GJ*(ha/2)*cos(theta_a)   
     '''RHS(11)'''
-    b[11, 0] = (FRzz*integ.w(x, 4) + GJ*integ.t(x, 2))*sin(theta_a) - GJ*integ.t(x, 2)*cos(theta_a)
+    b[11, 0] = (FRzz*integ.w(x, 4) + GJ*(ha/2 - sc)*integ.t(x, 2))*sin(theta_a) - (GJ*(ha/2)*integ.t(x, 2))*cos(theta_a)
     
     
     
     
     xx = np.linalg.solve(A, b)
     
-    Fy = integ.w(la,1) + P_y
+    Fy = -integ.w(la,1) - P_y
     Fz = -P_z
     
     return (A, xx, Fy, Fz)
