@@ -5,6 +5,7 @@ Created on Tue Feb 25 16:25:44 2020
 @author: Burhan
 """
 from math import sin,cos, radians
+import numpy as np
 import GlobalConstants as g
 import MoI as moi
 import Jcalc as JJ
@@ -66,7 +67,7 @@ def My(x):
 
 def T(x):
     '''Internal Torque'''
-    return (Ry1*sc*step(x - x1, 0) + Raz*(ha/2)*step(x - (x2 - xa/2), 0) - Ray*(ha/2 - sc)*step(x - (x2 - xa/2), 0) + Ry2*sc*step(x - x2, 0) - Pz*(ha/2)*step(x - (x2 + xa/2), 0) + Py*(ha/2 - sc)*step(x - (x2 + xa/2), 0) + Ry3*sc*step(x - x3, 0) + integ.t(x,1))
+    return -(Ry1*sc*step(x - x1, 0) + Raz*(ha/2)*step(x - (x2 - xa/2), 0) - Ray*(ha/2 - sc)*step(x - (x2 - xa/2), 0) + Ry2*sc*step(x - x2, 0) - Pz*(ha/2)*step(x - (x2 + xa/2), 0) + Py*(ha/2 - sc)*step(x - (x2 + xa/2), 0) + Ry3*sc*step(x - x3, 0) + integ.t(x,1))
 
 def Sy(x):
     '''Internal shear force, in y'''
@@ -78,15 +79,15 @@ def Sz(x):
 
 def v(x):
     '''Deflection in y'''
-    return (FRzz*((Ry1/6)*step(x - x1, 3) + (Ray/6)*step(x - (x2 - xa/2), 3) + (Ry2/6)*step(x - x2, 3) - (Py/6)*step(x - (x2 + xa/2), 3) + (Ry3/6)*step(x - x3, 3) - integ.w(x, 4) - Cv1*x - Cv2))
+    return 1000*(FRzz*((Ry1/6)*step(x - x1, 3) + (Ray/6)*step(x - (x2 - xa/2), 3) + (Ry2/6)*step(x - x2, 3) - (Py/6)*step(x - (x2 + xa/2), 3) + (Ry3/6)*step(x - x3, 3) - integ.w(x, 4) - Cv1*x - Cv2))
 
 def w(x):
     '''Deflection in z'''
-    return (FRyy*((Rz1/6)*step(x - x1, 3) + (Raz/6)*step(x - (x2 - xa/2), 3) + (Rz2/6)*step(x - x2, 3) - (Pz/6)*step(x - (x2 + xa/2), 3) + (Rz3/6)*step(x - x3, 3) - Cw1*x - Cw2))
+    return 1000*(FRyy*((Rz1/6)*step(x - x1, 3) + (Raz/6)*step(x - (x2 - xa/2), 3) + (Rz2/6)*step(x - x2, 3) - (Pz/6)*step(x - (x2 + xa/2), 3) + (Rz3/6)*step(x - x3, 3) - Cw1*x - Cw2))
 
 def theta(x):
     '''Angular deflection'''
-    return (GJ*(Ry1*sc*step(x - x1, 1) + Raz*(ha/2)*step(x - (x2 - xa/2), 1) - Ray*(ha/2 - sc)*step(x - (x2 - xa/2), 1) + Ry2*sc*step(x - x2, 1) - Pz*(ha/2)*step(x - (x2 + xa/2), 1) + Py*(ha/2 - sc)*step(x - (x2 + xa/2), 1) + Ry3*sc*step(x - x3, 1) + integ.t(x, 2) + Ct))
+    return -(180/np.pi)*(GJ*(Ry1*sc*step(x - x1, 1) + Raz*(ha/2)*step(x - (x2 - xa/2), 1) - Ray*(ha/2 - sc)*step(x - (x2 - xa/2), 1) + Ry2*sc*step(x - x2, 1) - Pz*(ha/2)*step(x - (x2 + xa/2), 1) + Py*(ha/2 - sc)*step(x - (x2 + xa/2), 1) + Ry3*sc*step(x - x3, 1) + integ.t(x, 2) + Ct))
 
 
 # print(v(x1)/cos(theta_a)*100, 100*v(x2), v(x3)/cos(theta_a)*100)
