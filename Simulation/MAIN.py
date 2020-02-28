@@ -50,47 +50,47 @@ print ("That took", time.time() - t0, "second(s)")
 # plt.show()
     
     
-# fig, ax = plt.subplots(1, 3, figsize = (24, 8));
-# ax[0].plot(x, My);
-# ax[0].set_title('Moment in y direction');
-# ax[0].grid(True);
-# ax[0].set_xlabel("x [m]");
-# ax[0].set_ylabel("My [Nm]");
+fig, ax = plt.subplots(1, 3, figsize = (24, 8));
+ax[0].plot(x, My);
+ax[0].set_title('Moment in y direction');
+ax[0].grid(True);
+ax[0].set_xlabel("x [m]");
+ax[0].set_ylabel("My [Nm]");
 
-# ax[1].plot(x, w);
-# ax[1].set_title('Deflection in z direction');
-# ax[1].grid(True);
-# ax[1].set_xlabel("x [m]");
-# ax[1].set_ylabel("w [m]");
+ax[1].plot(x, w);
+ax[1].set_title('Deflection in z direction');
+ax[1].grid(True);
+ax[1].set_xlabel("x [m]");
+ax[1].set_ylabel("w [m]");
 
-# ax[2].plot(x, Sz);
-# ax[2].set_title('Shear force in z direction');
-# ax[2].grid(True);
-# ax[2].set_xlabel("x [m]");
-# ax[2].set_ylabel("Sz [N]");
-# plt.tight_layout()
+ax[2].plot(x, Sz);
+ax[2].set_title('Shear force in z direction');
+ax[2].grid(True);
+ax[2].set_xlabel("x [m]");
+ax[2].set_ylabel("Sz [N]");
+plt.tight_layout()
 
 
 
-# fig, ax = plt.subplots(1, 3, figsize = (24, 8));
-# ax[0].plot(x, Mz);
-# ax[0].set_title('Moment in z direction');
-# ax[0].grid(True);
-# ax[0].set_xlabel("x [m]");
-# ax[0].set_ylabel("Mz [Nm]");
+fig, ax = plt.subplots(1, 3, figsize = (24, 8));
+ax[0].plot(x, Mz);
+ax[0].set_title('Moment in z direction');
+ax[0].grid(True);
+ax[0].set_xlabel("x [m]");
+ax[0].set_ylabel("Mz [Nm]");
 
-# ax[1].plot(x, v);
-# ax[1].set_title('Deflection in y direction');
-# ax[1].grid(True);
-# ax[1].set_xlabel("x [m]");
-# ax[1].set_ylabel("v [m]");
+ax[1].plot(x, v);
+ax[1].set_title('Deflection in y direction');
+ax[1].grid(True);
+ax[1].set_xlabel("x [m]");
+ax[1].set_ylabel("v [m]");
 
-# ax[2].plot(x, Sy);
-# ax[2].set_title('Shear force in y direction');
-# ax[2].grid(True);
-# ax[2].set_xlabel("x [m]");
-# ax[2].set_ylabel("Sz [N]");
-# plt.tight_layout()
+ax[2].plot(x, Sy);
+ax[2].set_title('Shear force in y direction');
+ax[2].grid(True);
+ax[2].set_xlabel("x [m]");
+ax[2].set_ylabel("Sz [N]");
+plt.tight_layout()
 
 
 
