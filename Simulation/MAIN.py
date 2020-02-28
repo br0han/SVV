@@ -38,59 +38,59 @@ for i in range(N):
     Mz[i] = graph.Mz(x[i])
     Sy[i] = graph.Sy(x[i])
     Sz[i] = graph.Sz(x[i])
-    T[i] = graph.T(x[i])
+    T[i] = -graph.T(x[i])
     v[i] = graph.v(x[i])
     w[i] = graph.w(x[i])
-    theta[i] = graph.theta(x[i])*(180/np.pi)
+    theta[i] = -graph.theta(x[i])*(180/np.pi)
     
-print (time.time() - t0)
+print ("That took", time.time() - t0, "second(s)")
 
 # plt.plot(x, theta)
 # plt.grid(1)
 # plt.show()
     
     
-fig, ax = plt.subplots(1, 3, figsize = (24, 8));
-ax[0].plot(x, My);
-ax[0].set_title('Moment in y direction');
-ax[0].grid(True);
-ax[0].set_xlabel("x [m]");
-ax[0].set_ylabel("My [Nm]");
+# fig, ax = plt.subplots(1, 3, figsize = (24, 8));
+# ax[0].plot(x, My);
+# ax[0].set_title('Moment in y direction');
+# ax[0].grid(True);
+# ax[0].set_xlabel("x [m]");
+# ax[0].set_ylabel("My [Nm]");
 
-ax[1].plot(x, w);
-ax[1].set_title('Deflection in z direction');
-ax[1].grid(True);
-ax[1].set_xlabel("x [m]");
-ax[1].set_ylabel("w [m]");
+# ax[1].plot(x, w);
+# ax[1].set_title('Deflection in z direction');
+# ax[1].grid(True);
+# ax[1].set_xlabel("x [m]");
+# ax[1].set_ylabel("w [m]");
 
-ax[2].plot(x, Sz);
-ax[2].set_title('Shear force in z direction');
-ax[2].grid(True);
-ax[2].set_xlabel("x [m]");
-ax[2].set_ylabel("Sz [N]");
-plt.tight_layout()
+# ax[2].plot(x, Sz);
+# ax[2].set_title('Shear force in z direction');
+# ax[2].grid(True);
+# ax[2].set_xlabel("x [m]");
+# ax[2].set_ylabel("Sz [N]");
+# plt.tight_layout()
 
 
 
-fig, ax = plt.subplots(1, 3, figsize = (24, 8));
-ax[0].plot(x, Mz);
-ax[0].set_title('Moment in z direction');
-ax[0].grid(True);
-ax[0].set_xlabel("x [m]");
-ax[0].set_ylabel("Mz [Nm]");
+# fig, ax = plt.subplots(1, 3, figsize = (24, 8));
+# ax[0].plot(x, Mz);
+# ax[0].set_title('Moment in z direction');
+# ax[0].grid(True);
+# ax[0].set_xlabel("x [m]");
+# ax[0].set_ylabel("Mz [Nm]");
 
-ax[1].plot(x, v);
-ax[1].set_title('Deflection in y direction');
-ax[1].grid(True);
-ax[1].set_xlabel("x [m]");
-ax[1].set_ylabel("v [m]");
+# ax[1].plot(x, v);
+# ax[1].set_title('Deflection in y direction');
+# ax[1].grid(True);
+# ax[1].set_xlabel("x [m]");
+# ax[1].set_ylabel("v [m]");
 
-ax[2].plot(x, Sy);
-ax[2].set_title('Shear force in y direction');
-ax[2].grid(True);
-ax[2].set_xlabel("x [m]");
-ax[2].set_ylabel("Sz [N]");
-plt.tight_layout()
+# ax[2].plot(x, Sy);
+# ax[2].set_title('Shear force in y direction');
+# ax[2].grid(True);
+# ax[2].set_xlabel("x [m]");
+# ax[2].set_ylabel("Sz [N]");
+# plt.tight_layout()
 
 
 

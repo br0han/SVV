@@ -2,6 +2,7 @@ import GlobalConstants as GC
 import numpy as np
 from cubicspline import cubicspline
 import MyNewIntegralForTorque as icf
+import Shear_center as sc
 
 import time
 
@@ -12,7 +13,9 @@ def DistForceTorqueMatrix():
     
     data = np.genfromtxt('aerodynamicloadcrj700.dat', dtype=None, delimiter=',')
     
-    ShearCenter = 0.007 ##changed to 0 from 0.007
+    ShearCenter = sc.FindSC()  ##changed to 0 from 0.007
+    
+    print("SC", ShearCenter)
     
     Ca = GC.Ca #0.484
     la = GC.la #1.691

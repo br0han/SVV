@@ -10,6 +10,7 @@ import GlobalConstants as g
 import IntegrateDistForces as idf
 import MoI as moi
 import Jcalc as JJ
+import Shear_center as SC
 from math import sin,cos,radians
 
 
@@ -28,7 +29,9 @@ def getunknowns():
     P = g.Load2
     theta_a = radians(g.maxdef)
     
-    sc = 0.007 #get Shear centre from marianos code
+    sc = SC.FindSC() #get Shear centre from marianos code
+    
+    print("SC in BigBmat", sc)
     
     P_y = P*sin(theta_a)
     P_z = P*cos(theta_a)
